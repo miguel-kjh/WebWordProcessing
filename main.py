@@ -5,6 +5,6 @@ url ="https://code.tutsplus.com/tutorials/scraping-webpages-in-python-with-beaut
 url2 = "https://www.bbc.com/news"
 if __name__ == '__main__':
     wwp = WebWordProcessing(url)
-    wwp.processing(re.compile("p|h[1-6]"), type="hola")
+    wwp.processing(re.compile("p|h[1-6]"))
     wwp.saveHtml()
     wwp.viewHtml()
