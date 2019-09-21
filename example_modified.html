@@ -1,0 +1,2303 @@
+<!DOCTYPE html>
+<html data-app-version="697adf7f2e285a6b31b2fbfee69ea4caf9ec3b72-production">
+ <head>
+  <link href="https://static.tutsplus.com/assets/application-c62c52e1d63ed3737f5dd0521641d63a.css" media="all" rel="stylesheet"/>
+  <link crossorigin="true" href="https://fonts.gstatic.com/" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet" type="text/css"/>
+  <meta charset="utf-8"/>
+  <script type="text/javascript">
+  </script>
+  <script type="text/javascript">
+   window
+   .
+   NREUM||(NREUM={}),__nr_require
+   =
+   function(e
+   ,
+  </script>
+  <title>
+   Scraping Webpages in Python With Beautiful Soup: The Basics
+  </title>
+  <link href="https://code.tutsplus.com/tutorials/scraping-webpages-in-python-with-beautiful-soup-the-basics--cms-28211" rel="canonical"/>
+  <link href="https://static.tutsplus.com/assets/favicon-9e8b377989d9949ad1003dc5298cd8ef.png" rel="shortcut icon" type="image/png"/>
+  <link href="https://static.tutsplus.com/assets/apple-touch-icon-edce48c2c1293474a34fa8f1c87b5685.png" rel="apple-touch-icon" type="image/png"/>
+  <script>
+  </script>
+  <link href="https://cookiebot-assets.envato-static.com/cookiebot.css" media="none" onload="if(media!='all')media='all'" rel="stylesheet" type="text/css"/>
+  <script async="async" data-cbid="4a6af4ea-f614-41d8-b0a9-8bb6d7fe4799" id="Cookiebot" src="https://consent.cookiebot.com/uc.js" type="text/javascript">
+  </script>
+  <!--[if lte IE 8]><link rel="stylesheet" media="screen" href="https://static.tutsplus.com/assets/ie8-9850b7f919e1b2b2d9d1a412d95bd6e3.css" /><script src="https://static.tutsplus.com/assets/modernizr.custom-980d665eeab47b43d57b6ce2c3e57284.js"></script><![endif]-->
+  <script async="async" src="//cdn.publift.com/fuse/tag/2/1007/fuse.js">
+  </script>
+  <script async="async" src="https://www.google-analytics.com/analytics.js">
+  </script>
+  <script src="https://static.tutsplus.com/assets/application-4a9dff07c33bfe23a15d029f5071424f.js">
+  </script>
+  <link href="https://tutsplus.com/posts.atom" rel="alternate" title="Atom 1.0" type="application/atom+xml"/>
+  <meta content="authenticity_token" name="csrf-param"/>
+  <meta content="DCZcb2RroDWcuIFFmlrWm8yndmzfAznTMJN5NESEiwM05GWTL44o2z0+kp1Jqewqrt1TUgpefdANI0QD/66apw==" name="csrf-token"/>
+  <meta content="initial-scale=1" name="viewport"/>
+  <meta content="index, follow" name="robots"/>
+  <meta content="Scraping Webpages in Python With Beautiful Soup: The Basics" property="og:title"/>
+  <meta content="Code Envato Tuts+" property="og:site_name"/>
+  <meta content="1494084460809023" property="fb:app_id"/>
+  <meta content="In a previous tutorial, I showed you how to use the Requests module to access webpages using Python. The tutorial covered a lot of topics like making GET/POST requests and downloading things like..." name="description" property="og:description"/>
+  <meta content="article" property="og:type"/>
+  <meta content="https://code.tutsplus.com/tutorials/scraping-webpages-in-python-with-beautiful-soup-the-basics--cms-28211" property="og:url"/>
+  <meta content="true" property="native:billable"/>
+  <meta content="1353" property="native:length"/>
+  <meta property="native:priority"/>
+  <link href="https://code.tutsplus.com/tutorials/scraping-webpages-in-python-with-beautiful-soup-the-basics--cms-28211" hreflang="en" rel="alternate"/>
+  <link href="https://code.tutsplus.com/es/tutorials/scraping-webpages-in-python-with-beautiful-soup-the-basics--cms-28211" hreflang="es" rel="alternate"/>
+  <link href="https://code.tutsplus.com/fr/tutorials/scraping-webpages-in-python-with-beautiful-soup-the-basics--cms-28211" hreflang="fr" rel="alternate"/>
+  <link href="https://code.tutsplus.com/id/tutorials/scraping-webpages-in-python-with-beautiful-soup-the-basics--cms-28211" hreflang="id" rel="alternate"/>
+  <link href="https://code.tutsplus.com/ru/tutorials/scraping-webpages-in-python-with-beautiful-soup-the-basics--cms-28211" hreflang="ru" rel="alternate"/>
+  <link href="https://code.tutsplus.com/vi/tutorials/scraping-webpages-in-python-with-beautiful-soup-the-basics--cms-28211" hreflang="vi" rel="alternate"/>
+  <meta content="https://cms-assets.tutsplus.com/uploads/users/1251/posts/28211/preview_image/tutspluspython.png" property="og:image"/>
+  <meta content="summary_large_image" name="twitter:card"/>
+  <meta content="@tutsplus" name="twitter:site"/>
+  <meta content="Scraping Webpages in Python With Beautiful Soup: The Basics" name="twitter:title"/>
+  <meta content="In a previous tutorial, I showed you how to use the Requests module to access webpages using Python. The tutorial covered a lot of topics like making GET/POST requests and downloading things like..." name="twitter:description"/>
+  <meta content="https://cms-assets.tutsplus.com/uploads/users/1251/posts/28211/preview_image/tutspluspython.png" name="twitter:image"/>
+  <meta content="t60fIs6JfmiK5FpPBlh_bKr5lJSX6abJYYIFjqiFG3M" name="google-site-verification"/>
+  <meta content="D3E35339A8EC086B14C62277CBEC8234" name="msvalidate.01"/>
+  <meta content="zvqxFgQqdy" name="baidu-site-verification"/>
+  <script async="async" src="https://static.tutsplus.com/assets/body-bbfdea90f67be2282dbc568003f10793.js">
+  </script>
+  <link href="//www.google-analytics.com" rel="dns-prefetch"/>
+  <link href="//fonts.gstatic.com" rel="dns-prefetch"/>
+  <link href="//js-agent.newrelic.com" rel="dns-prefetch"/>
+ </head>
+ <body class="page-body topic-code" data-ga-account="UA-11792865-37" data-ga-autolink-domains="activeden.net,audiojungle.net,themeforest.net,videohive.net,graphicriver.net,3docean.net,codecanyon.net,photodune.net,market.envato.com,market.styleguide.envato.com,elements.envato.com,build.envatohostedservices.com,author.envato.com,tutsplus.com,envato.com,business.tutsplus.com,design.tutsplus.com,code.tutsplus.com,webdesign.tutsplus.com,photography.tutsplus.com,music.tutsplus.com,cgi.tutsplus.com,gamedevelopment.tutsplus.com,computers.tutsplus.com,crafts.tutsplus.com" data-ga-domain="tutsplus.com" data-wt-dcsid="dcs222cpd4g6lg7wb3cum8l5g_6w6m">
+  <div class="announcement-bar view" data-announcement-id="header_student_sep19" data-background-image="https://cms-assets.tutsplus.com/uploads/users/15/topics/7/announcement_background_image/students.png" data-fallback-background-color="#523EE8" data-link-color="#303030" data-text-color="#ffffff">
+   <div class="announcement-bar__content">
+    <div class="announcement-bar__primary">
+     <div class="announcement-bar__title">
+      <div align="center">
+       <span class="announcement-bar__title-desktop">
+        Students
+       </span>
+       <span class="announcement-bar__title-mobile">
+       </span>
+       <a href="https://elements.envato.com/pricing/students?utm_source=tutsplus.com&amp;utm_medium=promos&amp;utm_campaign=elements_tuts-header_students_2019" rel="noskim">
+        Save Now
+       </a>
+      </div>
+      <style>
+       .announcement-bar__title a {
+        border-radius:4px;
+        background-color:#94F0DD;
+        padding:0px 20px;
+        box-shadow:0px 0px 0px #94F0DD;
+        margin:10px 10px 10px 10px;
+        font-size:12px;
+        letter-spacing:0.07em;
+        height:30px;
+        line-height:30px;
+        text-decoration:none;
+        color:#303030;
+    }
+
+    .announcement-bar__title a:hover {
+        background-color: #ccfef4;
+        text-decoration:none;
+    }
+      </style>
+     </div>
+    </div>
+    <div class="announcement-bar__secondary">
+     <a class="announcement-bar__close-link" href="javascript:" title="Close this announcement bar">
+      <span class="announcement-bar__close-label">
+      </span>
+      <i class="fa fa-times announcement-bar__close-icon">
+      </i>
+     </a>
+    </div>
+   </div>
+  </div>
+  <!--[if lt IE 10]><div class="legacy-ie-banner"><h2 class="legacy-ie-banner__title">Unsupported browser</h2><p class="legacy-ie-banner__text">This site was designed for modern browsers and tested with Internet Explorer version 10 and later. </p><p class="legacy-ie-banner__text">It may not look or work correctly on your browser. </p></div><![endif]-->
+  <nav class="global-nav view">
+   <div class="global-nav__mobile-overlay">
+   </div>
+   <div class="global-nav__mobile">
+    <section class="global-nav__mobile-search global-search view">
+     <form accept-charset="UTF-8" action="https://code.tutsplus.com/tutorials/search" class="global-nav__search-form" method="get">
+      <input name="utf8" type="hidden" value="✓"/>
+      <input class="global-nav__mobile-search-terms" id="search_terms" name="search[terms]" placeholder="Search Envato Tuts+" type="text" value=""/>
+      <button class="global-nav__mobile-search-button" name="button" type="submit">
+       <i class="fa fa-search">
+       </i>
+      </button>
+     </form>
+    </section>
+    <div class="global-nav__mobile-user-links">
+     <a class="global-nav__mobile-user-link" href="https://tutsplus.com/subscribe-with-elements">
+      Subscribe
+     </a>
+     <a class="global-nav__mobile-user-link" href="https://tutsplus.com/sign_in?redirect_to=https%3A%2F%2Fcode.tutsplus.com%2Ftutorials%2Fscraping-webpages-in-python-with-beautiful-soup-the-basics--cms-28211">
+      Sign In
+     </a>
+    </div>
+    <ul class="global-nav__mobile-top-level">
+     <li class="global-nav__mobile-top-level-item global-nav__mobile-top-level-item--expanded">
+      <a class="global-nav__mobile-top-level-link global-nav__mobile-top-level-link-expandable" href="https://tutsplus.com/tutorials">
+       <span class="global-nav__mobile-top-level-link-title">
+       </span>
+      </a>
+      <a class="global-nav__mobile-top-level-link global-nav__mobile-top-level-expansion-link" href="#">
+       <span class="global-nav__mobile-top-level-expand-text">
+       </span>
+       <span class="global-nav__mobile-top-level-collapse-text">
+       </span>
+      </a>
+      <ul class="global-nav__mobile-second-level">
+       <li class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-design" href="https://design.tutsplus.com/tutorials">
+         Design &amp; Illustration
+        </a>
+       </li>
+       <li class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-code" href="https://code.tutsplus.com/tutorials">
+         Code
+        </a>
+       </li>
+       <li class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-webdesign" href="https://webdesign.tutsplus.com/tutorials">
+         Web Design
+        </a>
+       </li>
+       <li class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-photography" href="https://photography.tutsplus.com/tutorials">
+         Photo &amp; Video
+        </a>
+       </li>
+       <li class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-business" href="https://business.tutsplus.com/tutorials">
+         Business
+        </a>
+       </li>
+       <li class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-music" href="https://music.tutsplus.com/tutorials">
+         Music &amp; Audio
+        </a>
+       </li>
+       <li class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-cgi" href="https://cgi.tutsplus.com/tutorials">
+         3D &amp; Motion Graphics
+        </a>
+       </li>
+       <li class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-gamedevelopment" href="https://gamedevelopment.tutsplus.com/tutorials">
+         Game Development
+        </a>
+       </li>
+       <li class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-computers" href="https://computers.tutsplus.com/tutorials">
+         Computer Skills
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="global-nav__mobile-top-level-item">
+      <a class="global-nav__mobile-top-level-link global-nav__mobile-top-level-link-expandable" href="https://tutsplus.com/courses">
+       <span class="global-nav__mobile-top-level-link-title">
+       </span>
+      </a>
+      <a class="global-nav__mobile-top-level-link global-nav__mobile-top-level-expansion-link" href="#">
+       <span class="global-nav__mobile-top-level-expand-text">
+       </span>
+       <span class="global-nav__mobile-top-level-collapse-text">
+       </span>
+      </a>
+      <div class="global-nav__mobile-second-level">
+       <div class="global-nav__mobile-second-level-item">
+       </div>
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-design" href="https://design.tutsplus.com/courses">
+         Design &amp; Illustration
+        </a>
+       </div>
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-code" href="https://code.tutsplus.com/courses">
+         Code
+        </a>
+       </div>
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-webdesign" href="https://webdesign.tutsplus.com/courses">
+         Web Design
+        </a>
+       </div>
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-photography" href="https://photography.tutsplus.com/courses">
+         Photo &amp; Video
+        </a>
+       </div>
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-business" href="https://business.tutsplus.com/courses">
+         Business
+        </a>
+       </div>
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-music" href="https://music.tutsplus.com/courses">
+         Music &amp; Audio
+        </a>
+       </div>
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-cgi" href="https://cgi.tutsplus.com/courses">
+         3D &amp; Motion Graphics
+        </a>
+       </div>
+      </div>
+     </li>
+     <li class="global-nav__mobile-top-level-item">
+      <div class="global-nav__mobile-top-level-link global-nav__mobile-top-level-link-expandable">
+       <span class="global-nav__mobile-top-level-link-title">
+       </span>
+      </div>
+      <div class="global-nav__mobile-top-level-link global-nav__mobile-top-level-expansion-link">
+       <span class="global-nav__mobile-top-level-expand-text">
+       </span>
+       <span class="global-nav__mobile-top-level-collapse-text">
+       </span>
+      </div>
+      <div class="global-nav__mobile-second-level">
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-design" href="https://design.tutsplus.com/series">
+         Design &amp; Illustration
+        </a>
+       </div>
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-code" href="https://code.tutsplus.com/series">
+         Code
+        </a>
+       </div>
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-webdesign" href="https://webdesign.tutsplus.com/series">
+         Web Design
+        </a>
+       </div>
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-photography" href="https://photography.tutsplus.com/series">
+         Photo &amp; Video
+        </a>
+       </div>
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-business" href="https://business.tutsplus.com/series">
+         Business
+        </a>
+       </div>
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-music" href="https://music.tutsplus.com/series">
+         Music &amp; Audio
+        </a>
+       </div>
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-cgi" href="https://cgi.tutsplus.com/series">
+         3D &amp; Motion Graphics
+        </a>
+       </div>
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-gamedevelopment" href="https://gamedevelopment.tutsplus.com/series">
+         Game Development
+        </a>
+       </div>
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-computers" href="https://computers.tutsplus.com/series">
+         Computer Skills
+        </a>
+       </div>
+      </div>
+     </li>
+     <li class="global-nav__mobile-top-level-item">
+      <a class="global-nav__mobile-top-level-link global-nav__mobile-top-level-link-expandable" href="https://tutsplus.com/ebooks">
+       <span class="global-nav__mobile-top-level-link-title">
+       </span>
+      </a>
+      <a class="global-nav__mobile-top-level-link global-nav__mobile-top-level-expansion-link" href="#">
+       <span class="global-nav__mobile-top-level-expand-text">
+       </span>
+       <span class="global-nav__mobile-top-level-collapse-text">
+       </span>
+      </a>
+      <div class="global-nav__mobile-second-level">
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-design" href="https://design.tutsplus.com/ebooks">
+         Design &amp; Illustration
+        </a>
+       </div>
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-code" href="https://code.tutsplus.com/ebooks">
+         Code
+        </a>
+       </div>
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-webdesign" href="https://webdesign.tutsplus.com/ebooks">
+         Web Design
+        </a>
+       </div>
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-photography" href="https://photography.tutsplus.com/ebooks">
+         Photo &amp; Video
+        </a>
+       </div>
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-business" href="https://business.tutsplus.com/ebooks">
+         Business
+        </a>
+       </div>
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-music" href="https://music.tutsplus.com/ebooks">
+         Music &amp; Audio
+        </a>
+       </div>
+       <div class="global-nav__mobile-second-level-item">
+        <a class="global-nav__mobile-second-level-topic-link topic-cgi" href="https://cgi.tutsplus.com/ebooks">
+         3D &amp; Motion Graphics
+        </a>
+       </div>
+      </div>
+     </li>
+     <li class="global-nav__mobile-top-level-item">
+      <a class="global-nav__mobile-top-level-link" href="https://tutsplus.com/subscribe-with-elements">
+       Pricing
+      </a>
+     </li>
+    </ul>
+    <ul class="global-nav-mobile__envato-links">
+     <li class="global-nav__mobile-top-level-item">
+      <a class="global-mobile__header-item--envato-link" href="https://elements.envato.com">
+       Envato Elements
+      </a>
+     </li>
+     <li class="global-nav__mobile-top-level-item">
+      <a class="global-mobile__header-item--envato-link" href="https://studio.envato.com">
+       Envato Studio
+      </a>
+     </li>
+     <li class="global-nav__mobile-top-level-item">
+      <a class="global-mobile__header-item--envato-link" href="https://community.envato.com">
+       Community
+      </a>
+     </li>
+     <li class="global-nav__mobile-top-level-item">
+      <a class="global-mobile__header-item--envato-link" href="https://help.elements.envato.com">
+       Help
+      </a>
+     </li>
+    </ul>
+   </div>
+   <div class="global-nav__header">
+    <div class="global-nav__header-content">
+     <div class="global-nav__header-top">
+      <a class="global-nav__header-tuts-logo-link" href="https://tutsplus.com/">
+       <img alt="envato-tuts+" class="global-nav__header-tuts-logo-image" src="https://static.tutsplus.com/assets/tuts_logo-cf1e6fd0e5ca6cc573eb3cd0c94e16d7.svg"/>
+      </a>
+      <div class="global-nav__header-right">
+       <ul class="global-nav__header-list">
+        <li class="global-nav__header-item">
+         <a class="global-nav__header-item--envato-link" href="https://elements.envato.com?utm_campaign=elements_tuts-header_nav&amp;utm_medium=promos&amp;utm_source=tutsplus">
+          Envato Elements
+         </a>
+        </li>
+        <li class="global-nav__header-item">
+         <a class="global-nav__header-item--envato-link" href="https://studio.envato.com?utm_campaign=elements_tuts-header_nav&amp;utm_medium=promos&amp;utm_source=tutsplus">
+          Envato Studio
+         </a>
+        </li>
+        <li class="global-nav__header-item">
+         <a class="global-nav__header-item--envato-link" href="https://community.envato.com?utm_campaign=elements_tuts-header_nav&amp;utm_medium=promos&amp;utm_source=tutsplus">
+          Community
+         </a>
+        </li>
+        <li class="global-nav__header-item">
+         <a class="global-nav__header-item--envato-link" href="https://forums.envato.com/c/project-making/envato-courses-and-tutorials?utm_campaign=elements_tuts-header_nav&amp;utm_medium=promos&amp;utm_source=tutsplus">
+          Forum
+         </a>
+        </li>
+        <li class="global-nav__header-item">
+         <a class="global-nav__header-item--envato-link" href="https://help.elements.envato.com">
+          Help
+         </a>
+        </li>
+       </ul>
+       <ul class="global-nav__header-buttons">
+        <li class="global-nav__header-item">
+         <a class="global-nav__header-item--internal-link global-nav__header-item--free-account-button" href="https://tutsplus.com/subscribe-with-elements">
+          Subscribe
+         </a>
+        </li>
+        <li class="global-nav__header-item">
+         <a class="global-nav__header-item--sign-in-button global-nav__header-item--internal-link" href="https://tutsplus.com/sign_in?redirect_to=https%3A%2F%2Fcode.tutsplus.com%2Ftutorials%2Fscraping-webpages-in-python-with-beautiful-soup-the-basics--cms-28211" rel="nofollow">
+          Sign In
+         </a>
+        </li>
+       </ul>
+      </div>
+     </div>
+     <div class="global-nav__header-bottom">
+      <ul class="global-nav__header-list">
+       <li class="global-nav__header-item">
+        <nav class="topics-menu view" data-toggle=".topics-menu__dropdown-toggle">
+         <a class="topics-menu__dropdown-toggle global-nav__header-link global-nav__header-link--primary global-nav__header-link--active" href="https://tutsplus.com/tutorials">
+          How-To Tutorials
+          <i class="fa fa-chevron-down">
+          </i>
+         </a>
+         <ul class="topics-menu__topics">
+          <li class="topics-menu__topic topic-design" data-slug="design">
+           <a class="topics-menu__topic-link topic-design" href="https://design.tutsplus.com/tutorials">
+            Design &amp; Illustration
+            <i class="fa fa-chevron-right topics-menu__topic-link-chevron">
+            </i>
+           </a>
+           <div class="topics-menu__topic-submenu topic-design">
+            <ul class="topics-menu__featured-categories">
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-design hello" href="https://design.tutsplus.com/categories/adobe-photoshop">
+               Adobe Photoshop
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-design hello" href="https://design.tutsplus.com/categories/adobe-illustrator">
+               Adobe Illustrator
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-design hello" href="https://design.tutsplus.com/categories/drawing">
+               Drawing
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-design hello" href="https://design.tutsplus.com/categories/adobe-indesign">
+               Adobe InDesign
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-design hello" href="https://design.tutsplus.com/categories/photo-manipulation">
+               Photo Manipulation
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-design hello" href="https://design.tutsplus.com/categories/graphic-design">
+               Graphic Design
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-design hello" href="https://design.tutsplus.com/categories/text-effects">
+               Text Effects
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-design hello" href="https://design.tutsplus.com/categories/vector">
+               Vector
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-design hello" href="https://design.tutsplus.com/categories/photoshop-actions">
+               Photoshop Actions
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-design hello" href="https://design.tutsplus.com/categories/icon-design">
+               Icon Design
+              </a>
+             </li>
+            </ul>
+            <a class="topics-menu__more-categories-link topic-design" href="https://design.tutsplus.com/categories">
+             More Categories...
+            </a>
+            <a class="topics-menu__submenu-footer-link topic-design" href="https://design.tutsplus.com/series">
+             Learning Guides
+            </a>
+           </div>
+          </li>
+          <li class="topics-menu__topic topic-code" data-slug="code">
+           <a class="topics-menu__topic-link topic-code" href="https://code.tutsplus.com/tutorials">
+            Code
+            <i class="fa fa-chevron-right topics-menu__topic-link-chevron">
+            </i>
+           </a>
+           <div class="topics-menu__topic-submenu topic-code">
+            <ul class="topics-menu__featured-categories">
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-code hello" href="https://code.tutsplus.com/categories/javascript">
+               JavaScript
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-code hello" href="https://code.tutsplus.com/categories/wordpress">
+               WordPress
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-code hello" href="https://code.tutsplus.com/categories/mobile-development">
+               Mobile Development
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-code hello" href="https://code.tutsplus.com/categories/php">
+               PHP
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-code hello" href="https://code.tutsplus.com/categories/laravel">
+               Laravel
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-code hello" href="https://code.tutsplus.com/categories/cms">
+               CMS
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-code hello" href="https://code.tutsplus.com/categories/swift">
+               Swift
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-code hello" href="https://code.tutsplus.com/categories/android-sdk">
+               Android SDK
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-code hello" href="https://code.tutsplus.com/categories/react">
+               React
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-code hello" href="https://code.tutsplus.com/categories/angular-2">
+               Angular 2+
+              </a>
+             </li>
+            </ul>
+            <a class="topics-menu__more-categories-link topic-code" href="https://code.tutsplus.com/categories">
+             More Categories...
+            </a>
+            <a class="topics-menu__submenu-footer-link topic-code" href="https://code.tutsplus.com/series">
+             Learning Guides
+            </a>
+           </div>
+          </li>
+          <li class="topics-menu__topic topic-webdesign" data-slug="webdesign">
+           <a class="topics-menu__topic-link topic-webdesign" href="https://webdesign.tutsplus.com/tutorials">
+            Web Design
+            <i class="fa fa-chevron-right topics-menu__topic-link-chevron">
+            </i>
+           </a>
+           <div class="topics-menu__topic-submenu topic-webdesign">
+            <ul class="topics-menu__featured-categories">
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-webdesign hello" href="https://webdesign.tutsplus.com/categories/css">
+               CSS
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-webdesign hello" href="https://webdesign.tutsplus.com/categories/html-css">
+               HTML &amp; CSS
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-webdesign hello" href="https://webdesign.tutsplus.com/categories/animation">
+               Animation
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-webdesign hello" href="https://webdesign.tutsplus.com/categories/ui-design">
+               UI Design
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-webdesign hello" href="https://webdesign.tutsplus.com/categories/adobe-photoshop">
+               Adobe Photoshop
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-webdesign hello" href="https://webdesign.tutsplus.com/categories/sketch">
+               Sketch
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-webdesign hello" href="https://webdesign.tutsplus.com/categories/workflow">
+               Workflow
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-webdesign hello" href="https://webdesign.tutsplus.com/categories/design-theory">
+               Design Theory
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-webdesign hello" href="https://webdesign.tutsplus.com/categories/javascript">
+               JavaScript
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-webdesign hello" href="https://webdesign.tutsplus.com/categories/ux">
+               UX
+              </a>
+             </li>
+            </ul>
+            <a class="topics-menu__more-categories-link topic-webdesign" href="https://webdesign.tutsplus.com/categories">
+             More Categories...
+            </a>
+            <a class="topics-menu__submenu-footer-link topic-webdesign" href="https://webdesign.tutsplus.com/series">
+             Learning Guides
+            </a>
+           </div>
+          </li>
+          <li class="topics-menu__topic topic-photography" data-slug="photography">
+           <a class="topics-menu__topic-link topic-photography" href="https://photography.tutsplus.com/tutorials">
+            Photo &amp; Video
+            <i class="fa fa-chevron-right topics-menu__topic-link-chevron">
+            </i>
+           </a>
+           <div class="topics-menu__topic-submenu topic-photography">
+            <ul class="topics-menu__featured-categories">
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-photography hello" href="https://photography.tutsplus.com/categories/photography">
+               Photography
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-photography hello" href="https://photography.tutsplus.com/categories/video">
+               Video
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-photography hello" href="https://photography.tutsplus.com/categories/editing">
+               Editing
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-photography hello" href="https://photography.tutsplus.com/categories/how-to">
+               How-To
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-photography hello" href="https://photography.tutsplus.com/categories/inspiration">
+               Inspiration
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-photography hello" href="https://photography.tutsplus.com/categories/lighting">
+               Lighting
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-photography hello" href="https://photography.tutsplus.com/categories/adobe-photoshop">
+               Adobe Photoshop
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-photography hello" href="https://photography.tutsplus.com/categories/adobe-after-effects">
+               Adobe After Effects
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-photography hello" href="https://photography.tutsplus.com/categories/adobe-premiere-pro">
+               Adobe Premiere Pro
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-photography hello" href="https://photography.tutsplus.com/categories/adobe-lightroom">
+               Adobe Lightroom
+              </a>
+             </li>
+            </ul>
+            <a class="topics-menu__more-categories-link topic-photography" href="https://photography.tutsplus.com/categories">
+             More Categories...
+            </a>
+            <a class="topics-menu__submenu-footer-link topic-photography" href="https://photography.tutsplus.com/series">
+             Learning Guides
+            </a>
+           </div>
+          </li>
+          <li class="topics-menu__topic topic-business" data-slug="business">
+           <a class="topics-menu__topic-link topic-business" href="https://business.tutsplus.com/tutorials">
+            Business
+            <i class="fa fa-chevron-right topics-menu__topic-link-chevron">
+            </i>
+           </a>
+           <div class="topics-menu__topic-submenu topic-business">
+            <ul class="topics-menu__featured-categories">
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-business hello" href="https://business.tutsplus.com/categories/small-business">
+               Small Business
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-business hello" href="https://business.tutsplus.com/categories/entrepreneurship">
+               Entrepreneurship
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-business hello" href="https://business.tutsplus.com/categories/freelance">
+               Freelance
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-business hello" href="https://business.tutsplus.com/categories/careers">
+               Careers
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-business hello" href="https://business.tutsplus.com/categories/marketing">
+               Marketing
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-business hello" href="https://business.tutsplus.com/categories/finance">
+               Finance
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-business hello" href="https://business.tutsplus.com/categories/productivity">
+               Productivity
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-business hello" href="https://business.tutsplus.com/categories/planning">
+               Planning
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-business hello" href="https://business.tutsplus.com/categories/communication">
+               Communication
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-business hello" href="https://business.tutsplus.com/categories/how-to">
+               How-To
+              </a>
+             </li>
+            </ul>
+            <a class="topics-menu__more-categories-link topic-business" href="https://business.tutsplus.com/categories">
+             More Categories...
+            </a>
+            <a class="topics-menu__submenu-footer-link topic-business" href="https://business.tutsplus.com/series">
+             Learning Guides
+            </a>
+           </div>
+          </li>
+          <li class="topics-menu__topic topic-music" data-slug="music">
+           <a class="topics-menu__topic-link topic-music" href="https://music.tutsplus.com/tutorials">
+            Music &amp; Audio
+            <i class="fa fa-chevron-right topics-menu__topic-link-chevron">
+            </i>
+           </a>
+           <div class="topics-menu__topic-submenu topic-music">
+            <ul class="topics-menu__featured-categories">
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-music hello" href="https://music.tutsplus.com/categories/audio-production">
+               Audio Production
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-music hello" href="https://music.tutsplus.com/categories/logic-pro">
+               Logic Pro
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-music hello" href="https://music.tutsplus.com/categories/general">
+               General
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-music hello" href="https://music.tutsplus.com/categories/mixing-mastering">
+               Mixing &amp; Mastering
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-music hello" href="https://music.tutsplus.com/categories/sound-design">
+               Sound Design
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-music hello" href="https://music.tutsplus.com/categories/workshops">
+               Workshops
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-music hello" href="https://music.tutsplus.com/categories/reason">
+               Reason
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-music hello" href="https://music.tutsplus.com/categories/recording">
+               Recording
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-music hello" href="https://music.tutsplus.com/categories/ableton-live">
+               Ableton Live
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-music hello" href="https://music.tutsplus.com/categories/cubase">
+               Cubase
+              </a>
+             </li>
+            </ul>
+            <a class="topics-menu__more-categories-link topic-music" href="https://music.tutsplus.com/categories">
+             More Categories...
+            </a>
+            <a class="topics-menu__submenu-footer-link topic-music" href="https://music.tutsplus.com/series">
+             Learning Guides
+            </a>
+           </div>
+          </li>
+          <li class="topics-menu__topic topic-cgi" data-slug="cgi">
+           <a class="topics-menu__topic-link topic-cgi" href="https://cgi.tutsplus.com/tutorials">
+            3D &amp; Motion Graphics
+            <i class="fa fa-chevron-right topics-menu__topic-link-chevron">
+            </i>
+           </a>
+           <div class="topics-menu__topic-submenu topic-cgi">
+            <ul class="topics-menu__featured-categories">
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-cgi hello" href="https://cgi.tutsplus.com/categories/adobe-after-effects">
+               Adobe After Effects
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-cgi hello" href="https://cgi.tutsplus.com/categories/3d">
+               3D
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-cgi hello" href="https://cgi.tutsplus.com/categories/3d-studio-max">
+               3D Studio Max
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-cgi hello" href="https://cgi.tutsplus.com/categories/motion-graphics">
+               Motion Graphics
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-cgi hello" href="https://cgi.tutsplus.com/categories/maya">
+               Maya
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-cgi hello" href="https://cgi.tutsplus.com/categories/cinema-4d">
+               Cinema 4D
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-cgi hello" href="https://cgi.tutsplus.com/categories/workflow">
+               Workflow
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-cgi hello" href="https://cgi.tutsplus.com/categories/blender">
+               Blender
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-cgi hello" href="https://cgi.tutsplus.com/categories/visual-effects">
+               Visual Effects
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-cgi hello" href="https://cgi.tutsplus.com/categories/roundups">
+               Roundups
+              </a>
+             </li>
+            </ul>
+            <a class="topics-menu__more-categories-link topic-cgi" href="https://cgi.tutsplus.com/categories">
+             More Categories...
+            </a>
+            <a class="topics-menu__submenu-footer-link topic-cgi" href="https://cgi.tutsplus.com/series">
+             Learning Guides
+            </a>
+           </div>
+          </li>
+          <li class="topics-menu__topic topic-gamedevelopment" data-slug="gamedevelopment">
+           <a class="topics-menu__topic-link topic-gamedevelopment" href="https://gamedevelopment.tutsplus.com/tutorials">
+            Game Development
+            <i class="fa fa-chevron-right topics-menu__topic-link-chevron">
+            </i>
+           </a>
+           <div class="topics-menu__topic-submenu topic-gamedevelopment">
+            <ul class="topics-menu__featured-categories">
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-gamedevelopment hello" href="https://gamedevelopment.tutsplus.com/categories/game-design">
+               Game Design
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-gamedevelopment hello" href="https://gamedevelopment.tutsplus.com/categories/platform-agnostic">
+               Platform Agnostic
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-gamedevelopment hello" href="https://gamedevelopment.tutsplus.com/categories/game-mechanics">
+               Game Mechanics
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-gamedevelopment hello" href="https://gamedevelopment.tutsplus.com/categories/business">
+               Business
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-gamedevelopment hello" href="https://gamedevelopment.tutsplus.com/categories/programming">
+               Programming
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-gamedevelopment hello" href="https://gamedevelopment.tutsplus.com/categories/game-art">
+               Game Art
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-gamedevelopment hello" href="https://gamedevelopment.tutsplus.com/categories/level-design">
+               Level Design
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-gamedevelopment hello" href="https://gamedevelopment.tutsplus.com/categories/from-scratch">
+               From Scratch
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-gamedevelopment hello" href="https://gamedevelopment.tutsplus.com/categories/unity">
+               Unity
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-gamedevelopment hello" href="https://gamedevelopment.tutsplus.com/categories/html5">
+               HTML5
+              </a>
+             </li>
+            </ul>
+            <a class="topics-menu__more-categories-link topic-gamedevelopment" href="https://gamedevelopment.tutsplus.com/categories">
+             More Categories...
+            </a>
+            <a class="topics-menu__submenu-footer-link topic-gamedevelopment" href="https://gamedevelopment.tutsplus.com/series">
+             Learning Guides
+            </a>
+           </div>
+          </li>
+          <li class="topics-menu__topic topic-computers" data-slug="computers">
+           <a class="topics-menu__topic-link topic-computers" href="https://computers.tutsplus.com/tutorials">
+            Computer Skills
+            <i class="fa fa-chevron-right topics-menu__topic-link-chevron">
+            </i>
+           </a>
+           <div class="topics-menu__topic-submenu topic-computers">
+            <ul class="topics-menu__featured-categories">
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-computers hello" href="https://computers.tutsplus.com/categories/os-x">
+               OS X
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-computers hello" href="https://computers.tutsplus.com/categories/app-training">
+               App Training
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-computers hello" href="https://computers.tutsplus.com/categories/productivity">
+               Productivity
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-computers hello" href="https://computers.tutsplus.com/categories/how-to">
+               How-To
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-computers hello" href="https://computers.tutsplus.com/categories/tips-shortcuts">
+               Tips &amp; Shortcuts
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-computers hello" href="https://computers.tutsplus.com/categories/customization">
+               Customization
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-computers hello" href="https://computers.tutsplus.com/categories/automation">
+               Automation
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-computers hello" href="https://computers.tutsplus.com/categories/security">
+               Security
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-computers hello" href="https://computers.tutsplus.com/categories/hardware">
+               Hardware
+              </a>
+             </li>
+             <li class="topics-menu__featured-category">
+              <a class="topics-menu__featured-category-link topic-computers hello" href="https://computers.tutsplus.com/categories/microsoft-powerpoint">
+               Microsoft Powerpoint
+              </a>
+             </li>
+            </ul>
+            <a class="topics-menu__more-categories-link topic-computers" href="https://computers.tutsplus.com/categories">
+             More Categories...
+            </a>
+            <a class="topics-menu__submenu-footer-link topic-computers" href="https://computers.tutsplus.com/series">
+             Learning Guides
+            </a>
+           </div>
+          </li>
+         </ul>
+        </nav>
+       </li>
+       <li class="global-nav__header-item">
+        <nav class="courses-menu view" data-toggle=".courses-menu__dropdown-toggle">
+         <a class="courses-menu__dropdown-toggle global-nav__header-link global-nav__header-link--primary" href="https://tutsplus.com/courses">
+          Courses
+          <i class="fa fa-chevron-down">
+          </i>
+         </a>
+         <ul class="courses-menu__topics">
+          <li class="courses-menu__topic topic-design" data-slug="design">
+           <a class="courses-menu__topic-link topic-design" href="https://design.tutsplus.com/courses">
+            Design &amp; Illustration
+           </a>
+          </li>
+          <li class="courses-menu__topic topic-code" data-slug="code">
+           <a class="courses-menu__topic-link topic-code" href="https://code.tutsplus.com/courses">
+            Code
+           </a>
+          </li>
+          <li class="courses-menu__topic topic-webdesign" data-slug="webdesign">
+           <a class="courses-menu__topic-link topic-webdesign" href="https://webdesign.tutsplus.com/courses">
+            Web Design
+           </a>
+          </li>
+          <li class="courses-menu__topic topic-photography" data-slug="photography">
+           <a class="courses-menu__topic-link topic-photography" href="https://photography.tutsplus.com/courses">
+            Photo &amp; Video
+           </a>
+          </li>
+          <li class="courses-menu__topic topic-business" data-slug="business">
+           <a class="courses-menu__topic-link topic-business" href="https://business.tutsplus.com/courses">
+            Business
+           </a>
+          </li>
+          <li class="courses-menu__topic topic-music" data-slug="music">
+           <a class="courses-menu__topic-link topic-music" href="https://music.tutsplus.com/courses">
+            Music &amp; Audio
+           </a>
+          </li>
+          <li class="courses-menu__topic topic-cgi" data-slug="cgi">
+           <a class="courses-menu__topic-link topic-cgi" href="https://cgi.tutsplus.com/courses">
+            3D &amp; Motion Graphics
+           </a>
+          </li>
+          <li class="courses-menu__separator">
+          </li>
+          <a class="courses-menu__topic-link courses-menu__upcoming-link" href="https://tutsplus.com/courses/upcoming">
+           Coming Soon
+          </a>
+         </ul>
+        </nav>
+       </li>
+       <li class="global-nav__header-item">
+        <nav class="learning-guide-menu view" data-toggle=".learning-guide-menu__dropdown-toggle">
+         <div class="learning-guide-menu__dropdown-toggle global-nav__header-link global-nav__header-link--primary">
+          Guides
+          <i class="fa fa-chevron-down">
+          </i>
+         </div>
+         <ul class="learning-guide-menu__topics">
+          <li class="learning-guide-menu__topic topic-design" data-slug="design">
+           <a class="learning-guide-menu__topic-link topic-design" href="https://design.tutsplus.com/series">
+            Design &amp; Illustration
+           </a>
+          </li>
+          <li class="learning-guide-menu__topic topic-code" data-slug="code">
+           <a class="learning-guide-menu__topic-link topic-code" href="https://code.tutsplus.com/series">
+            Code
+           </a>
+          </li>
+          <li class="learning-guide-menu__topic topic-webdesign" data-slug="webdesign">
+           <a class="learning-guide-menu__topic-link topic-webdesign" href="https://webdesign.tutsplus.com/series">
+            Web Design
+           </a>
+          </li>
+          <li class="learning-guide-menu__topic topic-photography" data-slug="photography">
+           <a class="learning-guide-menu__topic-link topic-photography" href="https://photography.tutsplus.com/series">
+            Photo &amp; Video
+           </a>
+          </li>
+          <li class="learning-guide-menu__topic topic-business" data-slug="business">
+           <a class="learning-guide-menu__topic-link topic-business" href="https://business.tutsplus.com/series">
+            Business
+           </a>
+          </li>
+          <li class="learning-guide-menu__topic topic-music" data-slug="music">
+           <a class="learning-guide-menu__topic-link topic-music" href="https://music.tutsplus.com/series">
+            Music &amp; Audio
+           </a>
+          </li>
+          <li class="learning-guide-menu__topic topic-cgi" data-slug="cgi">
+           <a class="learning-guide-menu__topic-link topic-cgi" href="https://cgi.tutsplus.com/series">
+            3D &amp; Motion Graphics
+           </a>
+          </li>
+          <li class="learning-guide-menu__topic topic-gamedevelopment" data-slug="gamedevelopment">
+           <a class="learning-guide-menu__topic-link topic-gamedevelopment" href="https://gamedevelopment.tutsplus.com/series">
+            Game Development
+           </a>
+          </li>
+          <li class="learning-guide-menu__topic topic-computers" data-slug="computers">
+           <a class="learning-guide-menu__topic-link topic-computers" href="https://computers.tutsplus.com/series">
+            Computer Skills
+           </a>
+          </li>
+         </ul>
+        </nav>
+       </li>
+       <li class="global-nav__header-item">
+        <nav class="ebooks-menu view" data-toggle=".ebooks-menu__dropdown-toggle">
+         <a class="ebooks-menu__dropdown-toggle global-nav__header-link global-nav__header-link--primary" href="https://tutsplus.com/ebooks">
+          eBooks
+          <i class="fa fa-chevron-down">
+          </i>
+         </a>
+         <ul class="ebooks-menu__topics">
+          <li class="ebooks-menu__topic topic-design" data-slug="design">
+           <a class="ebooks-menu__topic-link topic-design" href="https://design.tutsplus.com/ebooks">
+            Design &amp; Illustration
+           </a>
+          </li>
+          <li class="ebooks-menu__topic topic-code" data-slug="code">
+           <a class="ebooks-menu__topic-link topic-code" href="https://code.tutsplus.com/ebooks">
+            Code
+           </a>
+          </li>
+          <li class="ebooks-menu__topic topic-webdesign" data-slug="webdesign">
+           <a class="ebooks-menu__topic-link topic-webdesign" href="https://webdesign.tutsplus.com/ebooks">
+            Web Design
+           </a>
+          </li>
+          <li class="ebooks-menu__topic topic-photography" data-slug="photography">
+           <a class="ebooks-menu__topic-link topic-photography" href="https://photography.tutsplus.com/ebooks">
+            Photo &amp; Video
+           </a>
+          </li>
+          <li class="ebooks-menu__topic topic-business" data-slug="business">
+           <a class="ebooks-menu__topic-link topic-business" href="https://business.tutsplus.com/ebooks">
+            Business
+           </a>
+          </li>
+          <li class="ebooks-menu__topic topic-music" data-slug="music">
+           <a class="ebooks-menu__topic-link topic-music" href="https://music.tutsplus.com/ebooks">
+            Music &amp; Audio
+           </a>
+          </li>
+          <li class="ebooks-menu__topic topic-cgi" data-slug="cgi">
+           <a class="ebooks-menu__topic-link topic-cgi" href="https://cgi.tutsplus.com/ebooks">
+            3D &amp; Motion Graphics
+           </a>
+          </li>
+         </ul>
+        </nav>
+       </li>
+       <li class="global-nav__header-item">
+        <a class="global-nav__header-link" href="https://tutsplus.com/subscribe-with-elements">
+         Pricing
+        </a>
+       </li>
+      </ul>
+      <div class="global-nav__header-right">
+       <div class="global-nav__search global-search view">
+        <form accept-charset="UTF-8" action="https://code.tutsplus.com/tutorials/search" class="global-nav__search-form" method="get">
+         <input name="utf8" type="hidden" value="✓"/>
+         <input class="global-nav__search-terms" id="search_terms" name="search[terms]" placeholder="Search Envato Tuts+" type="text" value=""/>
+         <button class="global-nav__search-button" name="button" type="submit">
+          <i class="fa fa-search">
+          </i>
+         </button>
+        </form>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="global-nav__mobile-toggle">
+    <a class="global-nav__mobile-toggle-link" href="javascript:">
+     <i class="fa fa-reorder">
+     </i>
+     <i class="fa fa-times">
+     </i>
+    </a>
+   </div>
+  </nav>
+  <div class="avert fuse-ad avert--leaderboard">
+   <div class="avert__wrapper">
+    <div class="avert__content">
+     <div data-fuse="21764355519">
+     </div>
+    </div>
+    <div class="avert__label">
+     Advertisement
+    </div>
+   </div>
+  </div>
+  <div class="page-content topic-code">
+   <main class="content">
+    <div class="content-banner">
+     <div class="content-banner-restricted-width">
+      <ol class="content-banner__content-breadcrumb topic-code">
+       <li>
+        <a href="https://code.tutsplus.com/tutorials">
+         Code
+        </a>
+       </li>
+       <li>
+        <a href="https://code.tutsplus.com/categories/python">
+         Python
+        </a>
+       </li>
+      </ol>
+      <div class="content-banner__icon">
+       <img alt="Code" class="content-banner__title-icon" src="https://static.tutsplus.com/assets/redesign/code-92f4d6cb84ab4ebc886f67060c059c44.svg"/>
+      </div>
+      <div class="content-banner__body">
+       <h1 class="content-banner__title">
+        Scraping
+       </h1>
+      </div>
+     </div>
+    </div>
+    <div class="content-title">
+    </div>
+    <article class="post article view">
+     <div class="post__inarticle-ad-template" style="display: none">
+      <div class="avert fuse-ad">
+       <div class="avert__wrapper">
+        <div class="avert__content">
+         <div data-fuse="21764347426">
+         </div>
+        </div>
+        <div class="avert__label">
+         Advertisement
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="layout__content-with-sidebar">
+      <div class="content-heading">
+       <div class="content-heading__primary">
+        <div class="content-heading__primary-authorship">
+         <span class="content-heading__author">
+         </span>
+         <time class="content-heading__publication-date" datetime="2017-04-04T12:00:18Z" title="4 Apr 2017">
+          4 Apr 2017
+         </time>
+        </div>
+        <div class="content-heading__primary-attributes">
+         <span class="content-heading__item">
+         </span>
+         <span class="content-heading__item">
+         </span>
+         <span class="content-heading__item">
+         </span>
+        </div>
+       </div>
+       <div class="content-heading__secondary">
+        <div class="content-heading__secondary-categories">
+         <a href="/categories/python">
+          <span class="content-heading__secondary-categories-tag">
+          </span>
+         </a>
+        </div>
+        <div class="content-heading__secondary-social">
+         <span class="content-heading__comment-count">
+         </span>
+        </div>
+       </div>
+      </div>
+      <div class="post-body view">
+       <div class="post-body__series-navigation">
+        <div class="post-body__series-navigation-description">
+         This post is part of a series called
+         <a href="https://code.tutsplus.com/series/scraping-webpages-in-python-with-beautiful-soup--cms-1147">
+          Scraping Webpages in Python with Beautiful Soup
+         </a>
+         .
+        </div>
+        <div class="post-body__series-navigation-item">
+         <a class="post-body__series-navigation-next-link" href="/tutorials/scraping-webpages-in-python-with-beautiful-soup-search-and-dom-modification--cms-28276">
+          Scraping Webpages in Python With Beautiful Soup: Search and DOM Modification
+         </a>
+        </div>
+       </div>
+       <div class="post-body__body">
+        <script async="" charset="utf-8" src="//platform.twitter.com/widgets.js">
+        </script>
+        <div class="post-body__content">
+         <p>
+          In
+          a
+          previous
+          tutorial
+          ,
+         </p>
+         <p>
+          In
+          this
+          tutorial
+          ,
+         </p>
+         <h2>
+         </h2>
+         <p>
+          You
+          can
+         </p>
+         <pre class="brush: python noskimlinks noskimwords">$ </pre>
+         <p>
+          If
+         </p>
+         <pre class="brush: python noskimlinks noskimwords"></pre>
+         <p>
+          <mark class="entity" style="background: #12DFE1; line-height: 1; border-radius: 0.35em; box-decoration-break: clone; -webkit-box-decoration-break: clone">
+           BeautifulSoup
+           <a href="https://en.wikipedia.org/w/index.php?search=BeautifulSoup" style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; text-transform: uppercase; vertical-align: middle; " target="_blank">
+            ORG
+           </a>
+          </mark>
+          is
+          originally
+         </p>
+         <ul>
+          <li>
+           The “No module named HTMLParser”
+           <code>
+            ImportError
+           </code>
+           occurs when you are running the Python 2 version of the code under Python 3.
+          </li>
+          <li>
+           The “No module named html.parser”
+           <code>
+            ImportError
+           </code>
+           occurs when you are running the Python 3 version of the code under Python 2.
+          </li>
+         </ul>
+         <p>
+          Both
+         </p>
+         <h2>
+         </h2>
+         <p>
+          Before
+          discussing
+         </p>
+         <pre class="brush: python noskimlinks noskimwords">from </pre>
+         <p>
+          The
+          BeautifulSoup
+          object
+          can
+         </p>
+         <p>
+          The
+         </p>
+         <pre class="brush: python noskimlinks noskimwords">$ pip </pre>
+         <p>
+          The
+         </p>
+         <pre class="brush: python noskimlinks noskimwords">soup = BeautifulSoup("&lt;html&gt;&lt;p &gt; This is &lt; b </pre>
+         <p>
+          The
+          differences
+         </p>
+         <h2>
+         </h2>
+         <p>
+          Beautiful
+          Soup
+          parses
+          the
+          given
+         </p>
+         <p>
+          The
+          Tag
+         </p>
+         <p>
+          You
+         </p>
+         <p>
+          The
+          text
+          within
+         </p>
+         <p>
+          Beautiful
+         </p>
+         <p>
+         </p>
+         <h2>
+          Getting
+          the
+         </h2>
+         <p>
+          You
+          can
+          extract
+          the
+         </p>
+         <pre class="brush: python noskimlinks noskimwords">import </pre>
+         <p>
+         </p>
+         <pre class="brush: python noskimlinks noskimwords">soup.title 
+ </pre>
+         <p>
+          You
+         </p>
+         <pre class="brush: python noskimlinks noskimwords">soup.h1 
+ # &lt; h1 class="firstHeading " </pre>
+         <p>
+         </p>
+         <pre class="brush: python noskimlinks noskimwords">for sub_heading </pre>
+         <h2>
+         </h2>
+         <p>
+          You
+          can
+          navigate
+          through
+         </p>
+         <p>
+         </p>
+         <p>
+          Both
+         </p>
+         <pre class="brush: python noskimlinks noskimwords">print(soup.p.contents ) 
+ # </pre>
+         <p>
+          You
+         </p>
+         <pre class="brush: python noskimlinks noskimwords">print(soup.p.parent.name ) 
+ # div 
+
+ for </pre>
+         <p>
+         </p>
+         <p>
+          For
+          two
+         </p>
+         <p>
+         </p>
+         <pre class="brush: python noskimlinks noskimwords">soup.head.next_sibling 
+ </pre>
+         <p>
+         </p>
+         <p>
+         </p>
+         <h2>
+         </h2>
+         <p>
+          After
+         </p>
+         <p>
+          In
+          the
+         </p>
+        </div>
+       </div>
+      </div>
+      <div class="avert fuse-ad">
+       <div class="avert__wrapper">
+        <div class="avert__content">
+         <div data-fuse="21764354928">
+         </div>
+        </div>
+        <div class="avert__label">
+         Advertisement
+        </div>
+       </div>
+      </div>
+      <div class="content-author">
+       <a href="https://tutsplus.com/authors/monty-shokeen">
+        <div class="content-author__header">
+         <img alt="Monty Shokeen" class="content-author__image" data-src="https://cms-assets.tutsplus.com/uploads/users/1251/profiles/19759/profileImage/tutsplus-profile.png" src=""/>
+         <div class="content-author__name">
+          Monty Shokeen
+         </div>
+         <div class="content-author__title">
+         </div>
+        </div>
+        <div class="content-author__bio">
+         I am a full-stack developer who also loves to write tutorials in his free time.  Other than that, I love learning about new and interesting JavaScript libraries.
+        </div>
+       </a>
+      </div>
+     </div>
+     <div class="layout__sidebar">
+      <ul class="social-links">
+       <li class="social-links__item social-links__item--feed">
+        <a class="social-links__link social-links__link--feed" href="https://code.tutsplus.com/categories/python.atom">
+         <i class="icon fa fa-rss social-links__icon">
+         </i>
+         Feed
+        </a>
+       </li>
+       <li class="social-links__item social-links__item--facebook">
+        <a class="social-links__link social-links__link--facebook" href="https://www.facebook.com/tutsplus">
+         <i class="icon fa fa-facebook-square social-links__icon">
+         </i>
+         Like
+        </a>
+       </li>
+       <li class="social-links__item social-links__item--twitter">
+        <a class="social-links__link social-links__link--twitter" href="http://twitter.com/TutsPlusCode">
+         <i class="icon fa fa-twitter social-links__icon">
+         </i>
+         Follow
+        </a>
+       </li>
+      </ul>
+      <div class="post__sidebar">
+       <div class="post__sidebar-primary">
+        <div class="weekly-digest-subscription">
+         <div class="weekly-digest-subscription--header">
+          Weekly email summary
+         </div>
+         Subscribe below and we’ll send you a weekly email summary of all new Code tutorials. Never miss out on learning about the next big thing.
+         <form accept-charset="UTF-8" action="/weekly_digest_subscription_requests" class="weekly-digest-subscription__form" id="new_weekly_digest_subscription_request" method="post">
+          <input name="utf8" type="hidden" value="✓"/>
+          <input name="authenticity_token" type="hidden" value="z5bEhjm3pXW2o8YC1EXOM8NOkXyLc6uEsC8LMDiZYIf3VP16clItmxcl1doHtvSCoTS0Ql4u74eNnzYHg7NxIw=="/>
+          <input class="weekly-digest-subscription__email-field" id="weekly_digest_subscription_request_email" name="weekly_digest_subscription_request[email]" placeholder="Email Address" type="email"/>
+          <button class="weekly-digest-subscription__subscribe-button" name="button" type="submit">
+           Update me weekly
+          </button>
+         </form>
+        </div>
+        <div class="avert fuse-ad">
+         <div class="avert__wrapper">
+          <div class="avert__content">
+           <div data-fuse="21764355522">
+           </div>
+          </div>
+          <div class="avert__label">
+           Advertisement
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="post__sidebar-secondary">
+        <div class="post__sidebar-resource-links">
+        </div>
+        <div class="post-translate">
+         <div class="post-translate-heading">
+          Translations
+         </div>
+         <p>
+         </p>
+         <a class="post-translate-button" href="https://getnative.me/?ref=tutsplus&amp;lang=en&amp;url=https://code.tutsplus.com/tutorials/scraping-webpages-in-python-with-beautiful-soup-the-basics--cms-28211&amp;title=Scraping%20Webpages%20in%20Python%20With%20Beautiful%20Soup%3A%20The%20Basics&amp;splitMode=1">
+          Translate this post
+         </a>
+         <div class="post-translate-by">
+          Powered by
+          <img alt="Native" class="free-trial-highlight__logo" data-src="https://static.tutsplus.com/assets/translations/native-logo-26829f74cf5fa5fd085cd64c24df4c50.png" src="" title="Native"/>
+         </div>
+        </div>
+        <div class="sticky-ad-target">
+        </div>
+        <div class="sticky-ad">
+         <div class="avert fuse-ad">
+          <div class="avert__wrapper">
+           <div class="avert__content">
+            <div data-fuse="21764355525">
+            </div>
+           </div>
+           <div class="avert__label">
+            Advertisement
+           </div>
+          </div>
+         </div>
+         <div class="free-trial-highlight green">
+          <img alt="envato-tuts+" class="free-trial-highlight__logo" data-src="https://static.tutsplus.com/assets/tuts_logo-cf1e6fd0e5ca6cc573eb3cd0c94e16d7.svg" src=""/>
+          <div class="free-trial-highlight__header">
+           <div class="free-trial-highlight__line-one">
+            <span class="free-trial-highlight__text">
+            </span>
+            <span class="free-trial-highlight__highlight-text">
+            </span>
+           </div>
+           <div class="free-trial-highlight__line-two">
+            <span class="free-trial-highlight__text">
+            </span>
+           </div>
+          </div>
+          <a href="https://tutsplus.com/subscribe-with-elements?ec_unit=sidebar-sticky">
+           <div class="free-trial-highlight__action">
+            <div class="free-trial-highlight__action-text">
+             Subscribe to Access
+            </div>
+            <div class="free-trial-highlight__action-button">
+             <span class="fa fa-angle-right">
+             </span>
+            </div>
+           </div>
+          </a>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </article>
+    <footer class="post__footer">
+     <div class="layout__content-with-sidebar">
+      <div class="post__comments" id="post_comments" name="post_comments">
+       <div id="disqus_thread" name="disqus_thread">
+       </div>
+       <script>
+        var
+       </script>
+       <script>
+        var
+        disqus_shortname
+       </script>
+      </div>
+     </div>
+     <div class="layout__sidebar">
+      <div class="avert fuse-ad">
+       <div class="avert__wrapper">
+        <div class="avert__content">
+         <div data-fuse="21764355528">
+         </div>
+        </div>
+        <div class="avert__label">
+         Advertisement
+        </div>
+       </div>
+      </div>
+     </div>
+    </footer>
+   </main>
+   <div class="market-highlight market-highlight--padded-bottom">
+    <div class="market-highlight__heading">
+     <div class="market-highlight__intro">
+      Looking for something to help kick start your next project?
+     </div>
+     <div class="market-highlight__title">
+      <a href="https://themeforest.net?ec_unit=market_highlight">
+       Envato Market
+      </a>
+      has a range of items for sale to help get you started.
+     </div>
+    </div>
+    <div class="market-highlight__cards">
+     <div class="market-highlight__card">
+      <a href="https://codecanyon.net/category/wordpress?ec_unit=market_highlight">
+       <img class="market-highlight__card-image" data-src="https://static.tutsplus.com/assets/market/code/wordpressplugin-7f1dd47155c415eca57446774b224ec4.png"/>
+       <div class="market-highlight__card-content">
+        <div class="market-highlight__card-title">
+         WordPress Plugins
+        </div>
+        <div class="market-highlight__card-description">
+         From $5
+        </div>
+       </div>
+      </a>
+     </div>
+     <div class="market-highlight__card">
+      <a href="https://codecanyon.net/category/php-scripts?ec_unit=market_highlight">
+       <img class="market-highlight__card-image" data-src="https://static.tutsplus.com/assets/market/code/php_script-4741ed2bae7195fd7d74053caf84174d.png"/>
+       <div class="market-highlight__card-content">
+        <div class="market-highlight__card-title">
+         PHP Scripts
+        </div>
+        <div class="market-highlight__card-description">
+         From $5
+        </div>
+       </div>
+      </a>
+     </div>
+     <div class="market-highlight__card">
+      <a href="https://codecanyon.net/category/javascript?ec_unit=market_highlight">
+       <img class="market-highlight__card-image" data-src="https://static.tutsplus.com/assets/market/code/javascript-b89862766072bc1ca0cffabf89aae971.png"/>
+       <div class="market-highlight__card-content">
+        <div class="market-highlight__card-title">
+         JavaScript
+        </div>
+        <div class="market-highlight__card-description">
+         From $3
+        </div>
+       </div>
+      </a>
+     </div>
+     <div class="market-highlight__card">
+      <a href="https://codecanyon.net/category/mobile?ec_unit=market_highlight">
+       <img class="market-highlight__card-image" data-src="https://static.tutsplus.com/assets/market/code/mobile-9ae75987b25adf065cb964b223f0fd5d.png"/>
+       <div class="market-highlight__card-content">
+        <div class="market-highlight__card-title">
+         Mobile App Templates
+        </div>
+        <div class="market-highlight__card-description">
+         From $5
+        </div>
+       </div>
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="ecosystem-highlight">
+   <div class="ecosystem-highlight__cards">
+    <div class="ecosystem-highlight__card">
+     <a href="https://elements.envato.com?ec_unit=ecosystem_highlight&amp;utm_campaign=elements_tuts-ecosystem-promo_&amp;utm_medium=promos&amp;utm_source=tutsplus">
+      <img class="ecosystem-highlight__card-image" data-src="https://static.tutsplus.com/assets/ecosystem/Elements-8d12ebd8ef7a8c6a1fd035134c4011f9.png"/>
+      <div class="ecosystem-highlight__card-content">
+       <div class="ecosystem-highlight__card-title">
+        Unlimited Downloads
+        <br/>
+        From $16.50/month
+       </div>
+       <div class="ecosystem-highlight__card-description">
+        Get access to over one million creative assets on Envato Elements.
+       </div>
+      </div>
+     </a>
+    </div>
+    <div class="ecosystem-highlight__card">
+     <a href="https://themeforest.net?ec_unit=ecosystem_highlight&amp;utm_campaign=elements_tuts-ecosystem-promo_&amp;utm_medium=promos&amp;utm_source=tutsplus">
+      <img class="ecosystem-highlight__card-image" data-src="https://static.tutsplus.com/assets/ecosystem/Market-7e6b77007d2f2e3158f3c3279a77a143.png"/>
+      <div class="ecosystem-highlight__card-content">
+       <div class="ecosystem-highlight__card-title">
+        Over 9 Million Digital Assets
+       </div>
+       <div class="ecosystem-highlight__card-description">
+        Everything you need for your next creative project.
+       </div>
+      </div>
+     </a>
+    </div>
+    <div class="ecosystem-highlight__card">
+     <a href="https://placeit.net?ec_unit=ecosystem_highlight&amp;utm_campaign=placeit_mkt-footer&amp;utm_content=tuts_global-footer&amp;utm_medium=promos&amp;utm_source=tutsplus.com">
+      <img class="ecosystem-highlight__card-image" data-src="https://static.tutsplus.com/assets/ecosystem/Placeit-4b64744fed7e0608004dca545150dd77.png"/>
+      <div class="ecosystem-highlight__card-content">
+       <div class="ecosystem-highlight__card-title">
+        Create Beautiful Logos, Designs
+        <br/>
+        &amp; Mockups in Seconds
+       </div>
+       <div class="ecosystem-highlight__card-description">
+        Design like a professional without Photoshop.
+       </div>
+      </div>
+     </a>
+    </div>
+    <div class="ecosystem-highlight__card">
+     <a href="https://community.envato.com?ec_unit=ecosystem_highlight&amp;utm_campaign=elements_tuts-ecosystem-promo_&amp;utm_medium=promos&amp;utm_source=tutsplus">
+      <img class="ecosystem-highlight__card-image" data-src="https://static.tutsplus.com/assets/ecosystem/Community-e18375bc04b26732cbe441eb1c736937.png"/>
+      <div class="ecosystem-highlight__card-content">
+       <div class="ecosystem-highlight__card-title">
+        Join the Community
+       </div>
+       <div class="ecosystem-highlight__card-description">
+        Share ideas. Host meetups. Lead discussions. Collaborate.
+       </div>
+      </div>
+     </a>
+    </div>
+   </div>
+  </div>
+  <div class="quick-links view">
+   <div class="quick-links__container">
+    <div class="quick-links__title">
+     <div class="quick-links__toggle js-quick-links__toggle">
+      <i class="quick-links__toggle-icon">
+      </i>
+      <span class="quick-links__toggle-text">
+      </span>
+      <span class="quick-links__toggle-subtext">
+      </span>
+     </div>
+    </div>
+    <div class="quick-links__content">
+     <ul class="quick-links__list">
+      <li class="quick-links__list-title">
+       Curated Design Assets
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://design.tutsplus.com/articles/100-fonts-from-envato-elements--cms-27661">
+        Best Cool Fonts
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://design.tutsplus.com/articles/23-best-stylish-indesign-magazine-templates-new-for-2019--cms-32692">
+        InDesign Magazine Templates
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://design.tutsplus.com/articles/50-mind-blowing-photoshop-actions-from-envato-elements--cms-27435">
+        Photoshop Actions
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://design.tutsplus.com/articles/33-best-indesign-newsletter-templates-new-for-2019--cms-32515">
+        InDesign Newsletter Templates
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://design.tutsplus.com/articles/25-indesign-templates-every-designer-should-own--cms-28334">
+        InDesign Templates
+       </a>
+      </li>
+     </ul>
+     <ul class="quick-links__list">
+      <li class="quick-links__list-title">
+       Curated Web Design Assets
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://webdesign.tutsplus.com/articles/best-responsive-wordpress-themes--cms-29973">
+        Responsive WordPress Themes
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://webdesign.tutsplus.com/articles/best-wordpress-themes-for-consultants-coaches--cms-29404">
+        WordPress Themes for Consultants
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://webdesign.tutsplus.com/tutorials/20-must-have-wireframe-templates-and-ui-kits-for-your-design-library--cms-31568">
+        Wireframe Templates
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://webdesign.tutsplus.com/articles/20-best-shopify-themes-with-beautiful-ecommerce-designs--cms-26547">
+        Best Shopify Themes
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://webdesign.tutsplus.com/articles/16-amazing-masonry-grid-style-wordpress-portfolio-themes--cms-30894">
+        Masonry WordPress Themes
+       </a>
+      </li>
+     </ul>
+     <ul class="quick-links__list">
+      <li class="quick-links__list-title">
+       Web Themes &amp; Templates
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://themeforest.net/category/wordpress">
+        WP Themes
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://themeforest.net/category/site-templates">
+        HTML Templates
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://themeforest.net/category/ecommerce/shopify">
+        Shopify Themes
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://themeforest.net/tags/bootstrap">
+        Bootstrap Themes
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://themeforest.net/free/wordpress-themes">
+        Free WordPress Themes
+       </a>
+      </li>
+     </ul>
+     <ul class="quick-links__list">
+      <li class="quick-links__list-title">
+       Video
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://videohive.net/category/after-effects-project-files">
+        After Effects Templates
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://videohive.net/category/apple-motion-templates">
+        Apple Motion Templates
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://videohive.net/tags/effects">
+        Video Effects
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://videohive.net/category/motion-graphics/lower-thirds">
+        Lower Thirds
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://videohive.net/category/stock-footage">
+        Stock Footage
+       </a>
+      </li>
+     </ul>
+     <ul class="quick-links__list">
+      <li class="quick-links__list-title">
+       Design Maker
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://placeit.net/c/logos?utm_medium=promos&amp;utm_source=envatoquicklinks&amp;utm_campaign=placeit_mkt-quicklinks&amp;utm_content=logo_quick-links">
+        Logo Maker
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://placeit.net/c/design-templates/?f_devices=business%20card%20maker&amp;h=36&amp;utm_medium=promos&amp;utm_source=envatoquicklinks&amp;utm_campaign=placeit_mkt-quicklinks&amp;utm_content=buscard_quick-links">
+        Business Card Maker
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://placeit.net/c/design-templates/?f_devices=t-shirt%20design&amp;h=35&amp;utm_medium=promos&amp;utm_source=envatoquicklinks&amp;utm_campaign=placeit_mkt-quicklinks&amp;utm_content=tshirt-maker_quick-links">
+        T-Shirt Maker
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://placeit.net/banner-maker?utm_medium=promos&amp;utm_source=envatoquicklinks&amp;utm_campaign=placeit_mkt-quicklinks&amp;utm_content=banner_maker_quick-links">
+        Banner Maker
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://placeit.net/flyer-maker?utm_medium=promos&amp;utm_source=envatoquicklinks&amp;utm_campaign=placeit_mkt-quicklinks&amp;utm_content=flyer_maker_quick-links">
+        Flyer Maker
+       </a>
+      </li>
+     </ul>
+     <ul class="quick-links__list">
+      <li class="quick-links__list-title">
+       Curated Video Assets
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://photography.tutsplus.com/articles/15-top-slideshow-templates-for-adobe-after-effects--cms-28308">
+        After Effects Slideshow Templates
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://photography.tutsplus.com/tutorials/10-best-adobe-premiere-pro-video-intro-opening-templates--cms-31346">
+        Premiere Pro Video Intro Templates
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://photography.tutsplus.com/tutorials/50-top-final-cut-pro-templates-to-watch--cms-32389">
+        Final Cut Pro Templates
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://photography.tutsplus.com/tutorials/15-top-title-video-templates-for-final-cut-pro--cms-33019">
+        Final Cut Pro Title Templates
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://photography.tutsplus.com/tutorials/15-cool-adobe-premiere-pro-video-effects-free-premium--cms-31277">
+        Premiere Pro Video Effects
+       </a>
+      </li>
+     </ul>
+     <ul class="quick-links__list">
+      <li class="quick-links__list-title">
+       Curated Presentation Assets
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://business.tutsplus.com/tutorials/best-keynote-pitch-deck-templates--cms-33041">
+        Keynote Pitch Deck Templates
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://business.tutsplus.com/articles/best-business-presentation-templates-for-google-slides-2018--cms-31177">
+        Google Slides Business Templates
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://business.tutsplus.com/articles/15-best-pitch-deck-templates-for-business-plan-powerpoint-presentations--cms-26433">
+        PowerPoint Pitch Deck Templates
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://business.tutsplus.com/articles/best-shopify-themes--cms-30306">
+        Best Shopify Mobile Themes
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://business.tutsplus.com/articles/best-new-presentation-templates--cms-29106">
+        Best Presentation Templates
+       </a>
+      </li>
+     </ul>
+     <ul class="quick-links__list">
+      <li class="quick-links__list-title">
+       Video Maker
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://placeit.net/intro-maker?utm_medium=promos&amp;utm_source=envatoquicklinks&amp;utm_campaign=placeit_mkt-quicklinks&amp;utm_content=intro_maker_quick_links">
+        Intro Maker
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://placeit.net/slideshow-video-maker?utm_medium=promos&amp;utm_source=envatoquicklinks&amp;utm_campaign=placeit_mkt-quicklinks&amp;utm_content=slideshow_video_maker_quick_links">
+        Slideshow Maker
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://placeit.net/instagram-story-video-maker?utm_medium=promos&amp;utm_source=envatoquicklinks&amp;utm_campaign=placeit_mkt-quicklinks&amp;utm_content=instagram_story_videomaker_quick_links">
+        Instagram Story Video Maker
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://placeit.net/c/videos/?f_devices=Offers%20%2F%20Sales&amp;h=117&amp;utm_medium=promos&amp;utm_source=envatoquicklinks&amp;utm_campaign=placeit_mkt-quicklinks&amp;utm_content=offer_sales_quick-links">
+        Offer / Sales
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://placeit.net/c/videos/?f_tags=Content%20Teaser&amp;h=120&amp;utm_medium=promos&amp;utm_source=envatoquicklinks&amp;utm_campaign=placeit_mkt-quicklinks&amp;utm_content=content_teaser_quick-links">
+        Content Teaser
+       </a>
+      </li>
+     </ul>
+     <ul class="quick-links__list">
+      <li class="quick-links__list-title">
+       Elements
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://elements.envato.com/wordpress/themes">
+        WordPress Themes
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://elements.envato.com/photos">
+        Stock Images
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://elements.envato.com/web-templates/site-templates">
+        Website Templates
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://elements.envato.com/graphic-templates/logos">
+        Logos
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://elements.envato.com/fonts">
+        Fonts
+       </a>
+      </li>
+     </ul>
+     <ul class="quick-links__list">
+      <li class="quick-links__list-title">
+       Tuts+
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://code.tutsplus.com/series/learn-javascript-the-complete-guide--cms-1112">
+        Learn JavaScript
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://design.tutsplus.com/series/learn-adobe-photoshop--cms-1098">
+        Photoshop Tutorials
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://design.tutsplus.com/articles/how-to-draw--cms-25787">
+        How to Draw
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://webdesign.tutsplus.com/series/learn-how-to-use-wordpress--cms-1074">
+        How to Use WordPress
+       </a>
+      </li>
+      <li class="quick-links__list-item">
+       <a class="quick-links__link" href="https://business.tutsplus.com/series/how-to-use-powerpoint-ultimate-tutorial-guide--cms-1207">
+        How to Use PowerPoint
+       </a>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </div>
+  <footer class="page-footer view">
+   <div class="page-footer__content">
+    <div class="page-footer__links-column">
+     <div class="page-footer__section page-footer__section--first">
+      <div class="page-footer__heading">
+       Envato Tuts+
+      </div>
+      <a class="page-footer__links-column-expansion-link" href="javascript:void(0);">
+       <span class="page-footer__links-column-expansion-link-expand-text">
+       </span>
+       <span class="page-footer__links-column-expansion-link-collapse-text">
+       </span>
+      </a>
+      <div class="page-footer__item">
+       <a class="page-footer__link" href="https://tutsplus.com/about">
+        About Envato Tuts+
+       </a>
+      </div>
+      <div class="page-footer__item">
+       <a class="page-footer__link" href="https://tutsplus.com/terms-of-use">
+        Terms of Use
+       </a>
+      </div>
+      <div class="page-footer__item">
+       <a class="page-footer__link" href="https://tutsplus.com/advertise">
+        Advertise
+       </a>
+      </div>
+     </div>
+    </div>
+    <div class="page-footer__links-column">
+     <div class="page-footer__section page-footer__section--first">
+      <div class="page-footer__heading">
+       Join our Community
+      </div>
+      <a class="page-footer__links-column-expansion-link" href="javascript:void(0);">
+       <span class="page-footer__links-column-expansion-link-expand-text">
+       </span>
+       <span class="page-footer__links-column-expansion-link-collapse-text">
+       </span>
+      </a>
+      <div class="page-footer__item">
+       <a class="page-footer__link" href="https://tutsplus.com/teach">
+        Teach at Envato Tuts+
+       </a>
+      </div>
+      <div class="page-footer__item">
+       <a class="page-footer__link" href="https://tutsplus.com/translate-for-us">
+        Translate for Envato Tuts+
+       </a>
+      </div>
+      <div class="page-footer__item">
+       <a class="page-footer__link" href="https://forums.envato.com/c/project-making/envato-courses-and-tutorials">
+        Forums
+       </a>
+      </div>
+     </div>
+    </div>
+    <div class="page-footer__links-column">
+     <div class="page-footer__section page-footer__section--first">
+      <div class="page-footer__heading">
+       Help
+      </div>
+      <a class="page-footer__links-column-expansion-link" href="javascript:void(0);">
+       <span class="page-footer__links-column-expansion-link-expand-text">
+       </span>
+       <span class="page-footer__links-column-expansion-link-collapse-text">
+       </span>
+      </a>
+      <div class="page-footer__item">
+       <a class="page-footer__link" href="https://help.elements.envato.com/hc/en-us/categories/360000070683”">
+        FAQ
+       </a>
+      </div>
+      <div class="page-footer__item">
+       <a class="page-footer__link" href="https://help.elements.envato.com">
+        Help Center
+       </a>
+      </div>
+     </div>
+    </div>
+    <div class="page-footer__links-column page-footer__links-last-column">
+     <div class="page-footer__tuts-brand">
+      <img alt="envato-tuts+" class="page-footer__tuts-logo-image tuts-logo" src="https://static.tutsplus.com/assets/tuts_logo-cf1e6fd0e5ca6cc573eb3cd0c94e16d7.svg"/>
+      <div class="page-footer__counts">
+       <div class="page-footer__count-item">
+        <div class="page-footer__count-value">
+         28,100
+        </div>
+        <div class="page-footer__count-label">
+         Tutorials
+        </div>
+       </div>
+       <div class="page-footer__count-item">
+        <div class="page-footer__count-value">
+         1,262
+        </div>
+        <div class="page-footer__count-label">
+         Courses
+        </div>
+       </div>
+       <div class="page-footer__count-item">
+        <div class="page-footer__count-value">
+         39,815
+        </div>
+        <div class="page-footer__count-label">
+         Translations
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="page-footer__envato-bar">
+    <div class="page-footer__envato-bar-content">
+     <div class="page-footer__envato-bar-content-left-column">
+      <ul class="page-footer__envato-bar-links">
+       <li class="page-footer__envato-bar-link-item">
+        <a class="page-footer__envato-bar-link" href="https://envato.com">
+         Envato.com
+        </a>
+       </li>
+       <li class="page-footer__envato-bar-link-item">
+        <a class="page-footer__envato-bar-link" href="https://envato.com/#products">
+         Our products
+        </a>
+       </li>
+       <li class="page-footer__envato-bar-link-item">
+        <a class="page-footer__envato-bar-link" href="https://envato.com/careers">
+         Careers
+        </a>
+       </li>
+       <li class="page-footer__envato-bar-link-item">
+        <a class="page-footer__envato-bar-link" href="https://envato.com/sitemap">
+         Sitemap
+        </a>
+       </li>
+      </ul>
+      <div class="page-footer__copyright">
+       © 2019 Envato Pty Ltd. Trademarks and brands are the property of their respective owners.
+      </div>
+     </div>
+     <div class="page-footer__envato-bar-content-right-column">
+      <ul class="page-footer__follow-us">
+       <li class="page-footer__follow-us-element">
+        Follow Envato Tuts+
+       </li>
+       <li class="page-footer__follow-us-element">
+        <a class="page-footer__social-link page-footer__facebook-link" href="https://www.facebook.com/tutsplus">
+         <img alt="Facebook" data-src="https://static.tutsplus.com/assets/social-facebook-767c0a32deba1312490b16662f974035.svg" src=""/>
+        </a>
+       </li>
+       <li class="page-footer__follow-us-element">
+        <a class="page-footer__social-link page-footer__twitter-link" href="https://twitter.com/tutsplus">
+         <img alt="Twitter" data-src="https://static.tutsplus.com/assets/social-twitter-73023d97b17190944657ecbbc7262c79.svg" src=""/>
+        </a>
+       </li>
+       <li class="page-footer__follow-us-element">
+        <a class="page-footer__social-link page-footer__pinterest-link" href="https://www.pinterest.com/tutsplus/">
+         <img alt="Pinterest" data-src="https://static.tutsplus.com/assets/social-pinterest-50994b8793c4e5a3529c7d2e9ebcbf6a.svg" src=""/>
+        </a>
+       </li>
+      </ul>
+     </div>
+    </div>
+   </div>
+  </footer>
+  <script type="text/javascript">
+  </script>
+  <script src="//www.googleadservices.com/pagead/conversion.js" type="text/javascript">
+  </script>
+  <noscript>
+  </noscript>
+ </body>
+</html>
