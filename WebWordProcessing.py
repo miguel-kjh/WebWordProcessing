@@ -29,8 +29,9 @@ class WebWordProcessing:
     def processing(self, regex, type="Semantics"):
         if type == "Semantics":
             wp = SemanticsProcessing(self.soup,self.languaje,regex)
-        else:
+        elif type == "Entities":
             wp = EntitiesProcessing(self.soup,self.languaje,regex)
+        else: return None
         wp.wordProcessing()
 
 

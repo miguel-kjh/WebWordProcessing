@@ -1,8 +1,12 @@
+import re
 from abc import ABC
 
 import spacy
 from bs4 import BeautifulSoup
 from spacy.tokens.span import Span
+
+from utils import switcher_color_entities,switcher_color_semantics
+scoring_singles = re.compile("[.,!? ]")
 
 
 class WordProcessing():
@@ -35,12 +39,6 @@ def get_wikipedia_url(span):
 
 class EntitiesProcessing(WordProcessing):
     def wordProcessing(self):
-        switcher_color ={
-            "PERSON":"#FF5733",
-            "ORG":"#12DFE1",
-            "GPE":"#1256E1",
-            "LOCATION":"#8012E1"
-        }
         Span.set_extension("wikipedia_url", getter=get_wikipedia_url)
         for heading in self.soup.find_all(self.regex):
 
@@ -49,34 +47,48 @@ class EntitiesProcessing(WordProcessing):
 
             new_tag = self.soup.new_tag(heading.name)
             new_tag.attrs = heading.attrs
-            for token,ent in zip(doc,doc.ents):
-                if (token in ent) and ent._.wikipedia_url != None:
-                    tag_font = self.create_tag(
-                        "mark",
-                        {"class": "entity",
-                         "style": "background: "+ switcher_color[ent.label_] +"; line-height: 1;"
-                                  " border-radius: 0.35em; box-decoration-break: clone;"
-                                  " -webkit-box-decoration-break: clone"
-                         },
-                        ent.text + " "
-                    )
-                    tag_font.append(self.create_tag(
-                        "a",
-                        {"style": "font-size: 0.8em; font-weight: bold; "
-                                  "line-height: 1; border-radius: 0.35em;"
-                                  " text-transform: uppercase; vertical-align: middle; ",
-                         "href":ent._.wikipedia_url,
-                         "target":"_blank"},
-                        ent.label_
-                    ))
-                    new_tag.append(tag_font)
+            entities = { ent.start_char:ent for ent in doc.ents}
+            tokens = [token.text for token in doc]
+            print(tokens)
+            jump = -1
+            s = ""
+            for index,char_s in enumerate(heading.text):
+                if index<=jump:
+                    continue
+
+                if len(entities) != 0 and index in entities.keys():
+                    ent = entities[index]
+                    if ent._.wikipedia_url != None:
+                        tag_font = self.create_tag(
+                            "mark",
+                            {"class": "entity",
+                             "style": "background: "+ switcher_color_entities[ent.label_] +"; line-height: 1;"
+                                      " border-radius: 0.35em; box-decoration-break: clone;"
+                                      " -webkit-box-decoration-break: clone"
+                             },
+                            ent.text + " "
+                        )
+                        tag_font.append(self.create_tag(
+                            "a",
+                            {"style": "font-size: 0.8em; font-weight: bold; "
+                                      "line-height: 1; border-radius: 0.35em;"
+                                      " text-transform: uppercase; vertical-align: middle; ",
+                             "href":ent._.wikipedia_url,
+                             "target":"_blank"},
+                            ent.label_
+                        ))
+                        new_tag.append(tag_font)
+                    else:
+                        new_tag.append(ent.text)
+                    jump = ent.end_char
+                    s = ""
                 else:
-                    new_tag.append(token.text + " ")
+                    s += char_s
+                    if s.strip() in tokens:
+                        print(s)
+                        new_tag.append(s)
+                        s = ""
             heading.replace_with(new_tag)
-
-
-
-
 
 class SemanticsProcessing(WordProcessing):
     def wordProcessing(self):
@@ -88,11 +100,11 @@ class SemanticsProcessing(WordProcessing):
             new_tag = self.soup.new_tag(heading.name)
             new_tag.attrs = heading.attrs
             for token in doc:
-                if token.pos_ == "NOUN":
+                if token.pos_ in switcher_color_semantics.keys():
                     tag_font = self.create_tag(
                         "mark",
                         {"class": "entity",
-                         "style": "background: #7aecec; line-height: 1;"
+                         "style": "background: "+ switcher_color_semantics[token.pos_] +"; line-height: 1;"
                                   " border-radius: 0.35em; box-decoration-break: clone;"
                                   " -webkit-box-decoration-break: clone"
                          },
@@ -103,25 +115,7 @@ class SemanticsProcessing(WordProcessing):
                         {"style": "font-size: 0.5em; font-weight: bold; "
                                   "line-height: 1; border-radius: 0.35em;"
                                   " text-transform: uppercase; vertical-align: middle; "},
-                        "Noun "
-                    ))
-                    new_tag.append(tag_font)
-                elif token.pos_ == "PROPN":
-                    tag_font = self.create_tag(
-                        "mark",
-                        {"class": "entity",
-                         "style": "background: #feca74; line-height: 1;"
-                                  " border-radius: 0.35em; box-decoration-break: clone;"
-                                  " -webkit-box-decoration-break: clone"
-                         },
-                        token.text + " "
-                    )
-                    tag_font.append(self.create_tag(
-                        "span",
-                        {"style": "font-size: 0.5em; font-weight: bold; "
-                                  "line-height: 1; border-radius: 0.35em;"
-                                  " text-transform: uppercase; vertical-align: middle; "},
-                        "Name "
+                        token.pos_
                     ))
                     new_tag.append(tag_font)
                 else:
