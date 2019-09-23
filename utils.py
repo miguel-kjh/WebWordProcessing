@@ -6,6 +6,6 @@ switcher_color_entities ={
         }
 
 switcher_color_semantics ={
-    "PROPN":"#17B9F1",
+    "PROPN":"#FF2D03",
     "NOUN":"#53FF03"
 }

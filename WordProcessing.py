@@ -3,7 +3,7 @@ from abc import ABC
 
 import spacy
 from bs4 import BeautifulSoup
-from spacy.tokens.span import Span
+from spacy.tokens import Span,Token
 
 from utils import switcher_color_entities,switcher_color_semantics
 
@@ -19,6 +19,9 @@ class WordProcessing():
             self.nlp = spacy.load("en_core_web_sm")
         self.soup = soup
         self.regex = regex
+        Token.set_extension("wikipedia_url",getter=get_wikipedia_url_semantics)
+        Span.set_extension("wikipedia_url", getter=get_wikipedia_url_entities)
+
 
     def wordProcessing(self):
         pass
@@ -30,15 +33,17 @@ class WordProcessing():
         return new_tag
 
 
-def get_wikipedia_url(span):
+def get_wikipedia_url_entities(span):
     if span.label_ in ("PERSON", "ORG", "GPE", "LOCATION"):
         entity_text = span.text.replace(" ", "_")
         return "https://en.wikipedia.org/w/index.php?search=" + entity_text
 
+def get_wikipedia_url_semantics(token):
+        return "https://en.wikipedia.org/w/index.php?search=" + token.text
+
 
 class EntitiesProcessing(WordProcessing):
     def wordProcessing(self):
-        Span.set_extension("wikipedia_url", getter=get_wikipedia_url)
         for heading in self.soup.find_all(self.regex):
 
             with self.nlp.disable_pipes('tagger','parser'):
@@ -91,8 +96,6 @@ class SemanticsProcessing(WordProcessing):
     def wordProcessing(self):
         for heading in self.soup.find_all(self.regex):
 
-            if heading.name in ["script"]:continue
-
             with self.nlp.disable_pipes('parser', 'ner'):
                 doc = self.nlp(heading.text)
 
@@ -110,10 +113,13 @@ class SemanticsProcessing(WordProcessing):
                         token.text + " "
                     )
                     tag_font.append(self.create_tag(
-                        "span",
+                        "a",
                         {"style": "font-size: 0.5em; font-weight: bold; "
                                   "line-height: 1; border-radius: 0.35em;"
-                                  " text-transform: uppercase; vertical-align: middle; "},
+                                  " text-transform: uppercase; vertical-align: middle; ",
+                         "href": token._.wikipedia_url,
+                         "target": "_blank"
+                         },
                         token.pos_
                     ))
                     new_tag.append(tag_font)
