@@ -6,7 +6,6 @@ from bs4 import BeautifulSoup
 from spacy.tokens.span import Span
 
 from utils import switcher_color_entities,switcher_color_semantics
-scoring_singles = re.compile("[.,!? ]")
 
 
 class WordProcessing():
@@ -49,7 +48,6 @@ class EntitiesProcessing(WordProcessing):
             new_tag.attrs = heading.attrs
             entities = { ent.start_char:ent for ent in doc.ents}
             tokens = [token.text for token in doc]
-            print(tokens)
             jump = -1
             s = ""
             for index,char_s in enumerate(heading.text):
@@ -85,7 +83,6 @@ class EntitiesProcessing(WordProcessing):
                 else:
                     s += char_s
                     if s.strip() in tokens:
-                        print(s)
                         new_tag.append(s)
                         s = ""
             heading.replace_with(new_tag)
@@ -93,6 +90,8 @@ class EntitiesProcessing(WordProcessing):
 class SemanticsProcessing(WordProcessing):
     def wordProcessing(self):
         for heading in self.soup.find_all(self.regex):
+
+            if heading.name in ["script"]:continue
 
             with self.nlp.disable_pipes('parser', 'ner'):
                 doc = self.nlp(heading.text)
