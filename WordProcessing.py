@@ -44,18 +44,18 @@ def get_wikipedia_url_semantics(token):
 
 class EntitiesProcessing(WordProcessing):
     def wordProcessing(self):
-        for heading in self.soup.find_all(self.regex):
+        for tag in self.soup.find_all(self.regex):
 
             with self.nlp.disable_pipes('tagger','parser'):
-                doc = self.nlp(heading.text)
+                doc = self.nlp(tag.text)
 
-            new_tag = self.soup.new_tag(heading.name)
-            new_tag.attrs = heading.attrs
+            new_tag = self.soup.new_tag(tag.name)
+            new_tag.attrs = tag.attrs
             entities = { ent.start_char:ent for ent in doc.ents}
             tokens = [token.text for token in doc]
             jump = -1
             s = ""
-            for index,char_s in enumerate(heading.text):
+            for index,char_s in enumerate(tag.text):
                 if index<=jump:
                     continue
 
@@ -90,17 +90,17 @@ class EntitiesProcessing(WordProcessing):
                     if s.strip() in tokens:
                         new_tag.append(s)
                         s = ""
-            heading.replace_with(new_tag)
+            tag.replace_with(new_tag)
 
 class SemanticsProcessing(WordProcessing):
     def wordProcessing(self):
-        for heading in self.soup.find_all(self.regex):
+        for tag in self.soup.find_all(self.regex):
 
             with self.nlp.disable_pipes('parser', 'ner'):
-                doc = self.nlp(heading.text)
+                doc = self.nlp(tag.text)
 
-            new_tag = self.soup.new_tag(heading.name)
-            new_tag.attrs = heading.attrs
+            new_tag = self.soup.new_tag(tag.name)
+            new_tag.attrs = tag.attrs
             for token in doc:
                 if token.pos_ in switcher_color_semantics.keys():
                     tag_font = self.create_tag(
@@ -125,4 +125,4 @@ class SemanticsProcessing(WordProcessing):
                     new_tag.append(tag_font)
                 else:
                     new_tag.append(token.text + " ")
-            heading.replace_with(new_tag)
+            tag.replace_with(new_tag)
